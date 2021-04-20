@@ -9,23 +9,53 @@ int linearSearch(int array[], int size, int val)
     return -1; 
 } 
 
-int binarySearch(int array[], int val, int low, int high)
+
+int binarySearch(int arry[], int val, int high)
 {
-    if(high >= low)
+    int i, j, temp;
+    for (i = 0; i < high; i++)
     {
-        int mid = low + (high - low) / 2;
-        if (array[mid] == val)
+        for (j = 0; j < (high - i - 1); j++)
         {
-            return mid;
+            if (arry[j] > arry[j + 1])
+            {
+                temp = arry[j];
+                arry[j] = arry[j + 1];
+                arry[j + 1] = temp;
+            }
         }
-        if (array[mid] > val)
-        {
-            return binarySearch(array, val, low, mid - 1);
-        }
-        return binarySearch(array, val, mid + 1, high);
     }
-    return -1;
+    for(i=0; i< high; i++)
+    {
+        printf("%4d\n",arry[i]);
+    }
+    int mid,flag=0,low=0;
+    while(low<=high&& flag==0)
+    {
+        mid=(low+high)/2;
+        if(arry[mid]==val)
+        {
+            flag=1;
+        }
+        if(val>arry[mid])
+        {
+            low=mid+1;
+        }
+        else
+        {
+            high=mid-1;
+        }
+    }
+    if(flag==0)
+    {
+        printf("Element not found!\n");
+    }
+    else
+    {
+        printf("Key found at position %d\n",mid+1);
+    }
 }
+
  
 int main() 
 {
@@ -33,11 +63,11 @@ int main()
     printf("\nEnter the size of Array : ");
     scanf("%d",&n);
     int arr[n];
-    for(int i = 0; i < n; i++)
-    {
-        printf("Enter the value for %d th position of Array : ",(i+1));
-        scanf("%d",&arr[i]);
-    }
+    for(int j = 0; j < n; j++)
+          {
+                  arr[j] = (rand() % 200)+1;
+                  printf("%4d\n", arr[j]);
+       }
     for(;;)
     {
         printf("\nMenu\n1. Linear Search\n2. Binary Search\n3.Exit\nEnter the choice from menu : ");
@@ -56,11 +86,8 @@ int main()
             case 2:
                 printf("\nEnter the element to be searched : ");
                 scanf("%d",&key);
-                int binres = binarySearch(arr, key, 0, n);
-                if (binres == -1)
-                    printf("Element not found!!");
-                else
-                    printf("Item is present at index %d", binres);
+                binarySearch(arr, key,n);
+                
                 break;
             case 3:
                 exit(0);
