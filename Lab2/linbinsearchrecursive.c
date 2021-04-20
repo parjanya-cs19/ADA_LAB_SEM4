@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
+
 
 int linearSearch(int array[], int size, int key)
 {
-    int location;
+    int location, i, j;
     if (array[size] == key)
     {
         return size;
@@ -20,6 +23,7 @@ int linearSearch(int array[], int size, int key)
 
 void bubble_sort(int arrb[], int size)
 {
+
     int temp, i, j;
     for (i = 0; i < size; i++)
     {
@@ -39,10 +43,10 @@ void bubble_sort(int arrb[], int size)
     }
 }
 
-int binarySearch(int arrb[],int lo, int key, int hi)
+int binarySearch(int arrb[], int lo, int key, int hi)
 {
     int mid;
- 
+
     if (lo > hi)
     {
         printf("Key not found\n");
@@ -65,6 +69,8 @@ int binarySearch(int arrb[],int lo, int key, int hi)
 
 int main()
 {
+    
+    clock_t start, end;
     int n = 0, choice, key;
     printf("\nEnter the size of Array : ");
     scanf("%d", &n);
@@ -74,10 +80,10 @@ int main()
         arr[j] = (rand() % 200) + 1;
         printf("%4d\n", arr[j]);
     }
-    for(int i=0; i<n; i++)
+    for (int i = 0; i < n; i++)
     {
-        arrl[i]=arr[i];
-        arrb[i]=arr[i];
+        arrl[i] = arr[i];
+        arrb[i] = arr[i];
     }
     for (;;)
     {
@@ -88,17 +94,26 @@ int main()
         case 1:
             printf("\nEnter the element to be searched : ");
             scanf("%d", &key);
+            start = clock();
             int linres = linearSearch(arrl, n, key);
             if (linres == -1)
                 printf("Element not found!!");
             else
                 printf("Item is present at index %d", linres);
+            end = clock();
+            double timea = (end - start);
+            printf("\nTime Taken is %.10f sec", timea);
+
             break;
         case 2:
+            start = clock();
             printf("\nEnter the element to be searched : ");
             scanf("%d", &key);
             bubble_sort(arrb, n);
-            binarySearch(arrb,0, key, n);
+            binarySearch(arrb, 0, key, n);
+            end = clock();
+            double timeb = (end - start);
+            printf("\nTime Taken is %.10f sec", timeb);
 
             break;
         case 3:
