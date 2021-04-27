@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 int gcdRecursion(int n1, int n2)
 {
@@ -10,8 +9,6 @@ int gcdRecursion(int n1, int n2)
 }
 int gcdIteration(int a, int b)
 {
-    clock_t start, end;
-    start = clock();
     while (a != b)
     {
         if (a > b)
@@ -20,9 +17,6 @@ int gcdIteration(int a, int b)
             b = b - a;
     }
     printf("G.C.D. is %d\n", a);
-    end = clock();
-    double timet = (end - start) / CLOCKS_PER_SEC;
-    printf("Time Taken is %.10f sec", timet);
 }
 int main()
 {
@@ -45,17 +39,11 @@ int main()
                 n1 = n2;
                 n2 = temp;
             }
-            clock_t start, end;
-            start = clock();
             printf("G.C.D of %d and %d is %d.\n", n1, n2, gcdRecursion(n1, n2));
-            end = clock();
-            double timet = (end - start) / CLOCKS_PER_SEC;
-            printf("Time Taken is %.10f sec", timet);
 
             break;
         case 2:
             gcdIteration(n1, n2);
-
             break;
         case 3:
             exit(0);
